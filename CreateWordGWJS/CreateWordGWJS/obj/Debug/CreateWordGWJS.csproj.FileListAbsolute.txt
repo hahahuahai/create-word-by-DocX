@@ -18,3 +18,12 @@ F:\study\国网江苏\生成汇编文档demo\CreateWordGWJS\CreateWordGWJS\obj\D
 F:\study\国网江苏\生成汇编文档demo\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.CreateWord.resources
 F:\study\国网江苏\生成汇编文档demo\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.Properties.Resources.resources
 F:\study\国网江苏\生成汇编文档demo\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.csproj.GenerateResource.Cache
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\bin\Debug\CreateWordGWJS.exe.config
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.exe
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.pdb
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\bin\Debug\CreateWordGWJS.exe
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\bin\Debug\CreateWordGWJS.pdb
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.csprojResolveAssemblyReference.cache
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.CreateWord.resources
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.Properties.Resources.resources
+C:\Users\huahai\Documents\GitHub\create-word-by-DocX\CreateWordGWJS\CreateWordGWJS\obj\Debug\CreateWordGWJS.csproj.GenerateResource.Cache
