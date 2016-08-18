@@ -34,5 +34,21 @@ namespace CreateWordGWJS.picture
             p.AppendPicture(picture);
         }
 
+        /// <summary>
+        /// 根据路径生成一个图片，返回图片
+        /// </summary>
+        /// <param name="document"></param>
+        /// <param name="picPath"></param>
+        /// <returns></returns>
+        public static Picture getPic(DocX document,string picPath)
+        {
+            Image image = document.AddImage(picPath);
+
+            Picture picture = image.CreatePicture();
+            picture.Height = 500;
+            picture.Width = 300;
+            return picture;
+        }
+
     }
 }

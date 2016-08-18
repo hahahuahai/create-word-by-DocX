@@ -40,7 +40,7 @@ namespace CreateWordGWJS
                 document.InsertTable(t);
 
                 parcelHelper phelper = new parcelHelper("通湖路699号地块");
-                phelper.insertInfo(document);
+                phelper.insertInfo(document,lstFM,p);
 
                 document.Save();
             }

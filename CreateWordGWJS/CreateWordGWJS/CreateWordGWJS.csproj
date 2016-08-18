@@ -60,6 +60,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="table\tableHelper.cs" />
+    <Compile Include="txt\txtHelper.cs" />
     <EmbeddedResource Include="CreateWord.resx">
       <DependentUpon>CreateWord.cs</DependentUpon>
     </EmbeddedResource>

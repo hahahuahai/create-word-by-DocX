@@ -113,6 +113,21 @@ namespace CreateWordGWJS
             return t;
         }
 
+        /// <summary>
+        /// 创建表，用来展示平面图（Plan）的表。
+        /// </summary>
+        /// <returns></returns>
+        public static Table PlanTable(DocX document,List<string> lstStr,string path)
+        {
+            Table t = document.AddTable(lstStr.Count, 1);
+            int i = 0;
+            foreach (string s in lstStr)
+            {
+                Picture p = picture.picHelper.getPic(document, path + s + ".jpg");
+                t.Rows[i].Cells[0].Paragraphs.First().AppendPicture(p).AppendLine(s);
+            }
+            return t;
+        }
    
     }
 }
