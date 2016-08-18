@@ -28,6 +28,7 @@ namespace CreateWordGWJS.parcels
             h1.StyleName = "Heading1";
             insertZDT(document);
             insertZPMFBT(document);
+            insertNKT(document);
         }
 
         /// <summary>
@@ -66,10 +67,22 @@ namespace CreateWordGWJS.parcels
             //ownershipPic.AppendLine("房屋所有权证");
             //picHelper.insert(document, landusePic, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司高邮市供电公司\\" + Name + "\\房屋所有权证.jpg");//todo:图片路径要改活
         }
-
+        /// <summary>
+        /// 插入鸟瞰图模块
+        /// </summary>
+        /// <param name="document"></param>
         public void insertNKT(DocX document)
         {
-
+            var h1_3 = document.InsertParagraph("鸟瞰图（航拍）");
+            h1_3.StyleName = "Heading2";
+            h1_3.AppendLine();
+            var AerialViewPic = document.InsertParagraph();
+            picHelper.insert(document, AerialViewPic, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司高邮市供电公司\\" + Name + "\\鸟瞰图\\正射.JPG");
+            picHelper.insert(document, AerialViewPic, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司高邮市供电公司\\" + Name + "\\鸟瞰图\\前.JPG");
+            picHelper.insert(document, AerialViewPic, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司高邮市供电公司\\" + Name + "\\鸟瞰图\\后.JPG");
+            picHelper.insert(document, AerialViewPic, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司高邮市供电公司\\" + Name + "\\鸟瞰图\\左.JPG");
+            picHelper.insert(document, AerialViewPic, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司高邮市供电公司\\" + Name + "\\鸟瞰图\\右.JPG");
+            AerialViewPic.AppendLine();
         }
 
     }
