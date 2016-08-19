@@ -9,16 +9,17 @@ namespace CreateWordGWJS.picture
 {
     class picHelper
     {
-        /// <summary>
-        /// 将图片插入到指定的书签位置
-        /// </summary>
-        /// <param name="document">操作的文档</param>
-        /// <param name="BMname">书签的名字</param>
-        /// <param name="picPath">图片的路径</param>
-        public static void insertBybookmark(DocX document,string BMname,string picPath)
-        {
-            //todo:
-        }
+        ///// <summary>
+        ///// 将图片插入到指定的书签位置
+        ///// </summary>
+        ///// <param name="document">操作的文档</param>
+        ///// <param name="BMname">书签的名字</param>
+        ///// <param name="picPath">图片的路径</param>
+        //public static void insertBybookmark(DocX document,string BMname,string picPath)
+        //{
+        //    //todo:
+        //}
+
         /// <summary>
         /// 把图片插入到段落
         /// </summary>
@@ -39,14 +40,16 @@ namespace CreateWordGWJS.picture
         /// </summary>
         /// <param name="document"></param>
         /// <param name="picPath"></param>
+        /// <param name="height">1厘米约等于28像素</param>
+        /// <param name="width">1厘米约等于28像素</param>
         /// <returns></returns>
-        public static Picture getPic(DocX document,string picPath)
+        public static Picture getPic(DocX document,string picPath,int height,int width)
         {
             Image image = document.AddImage(picPath);
 
             Picture picture = image.CreatePicture();
-            picture.Height = 500;
-            picture.Width = 300;
+            picture.Height = height;
+            picture.Width = width;
             return picture;
         }
 

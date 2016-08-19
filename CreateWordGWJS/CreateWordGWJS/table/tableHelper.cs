@@ -123,7 +123,7 @@ namespace CreateWordGWJS
             int i = 0;
             foreach (string s in lstStr)
             {
-                Picture p = picture.picHelper.getPic(document, path + s + ".jpg");
+                Picture p = picture.picHelper.getPic(document, path + s + ".jpg",500,300);
                 t.Rows[i].Cells[0].Paragraphs.First().AppendPicture(p).AppendLine(s);
             }
             return t;

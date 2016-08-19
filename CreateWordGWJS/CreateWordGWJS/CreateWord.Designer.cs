@@ -39,6 +39,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(312, 21);
             this.txtName.TabIndex = 0;
+            this.txtName.Text = "高邮市供电公司";
             // 
             // create
             // 
