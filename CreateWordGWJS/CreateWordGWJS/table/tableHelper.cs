@@ -65,11 +65,11 @@ namespace CreateWordGWJS
         /// <param name="t"></param>
         /// <param name="lsmFM"></param>
         /// <returns></returns>
-        public static Table inserttable(Table t, List<FDXXmodel> lsmFM)
+        public static Table inserttable(Table t, List<FDXXtbl> lsmFM)
         {
             int temp = 3;
 
-            foreach (FDXXmodel fm in lsmFM)
+            foreach (FDXXtbl fm in lsmFM)
             {
                 t.InsertRow();
                 t.Rows[temp].Cells[1].Paragraphs.First().Append(fm.ZDXX_MC);

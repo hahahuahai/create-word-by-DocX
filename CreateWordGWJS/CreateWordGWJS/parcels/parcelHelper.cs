@@ -21,7 +21,7 @@ namespace CreateWordGWJS.parcels
         /// 插入某个宗地的所有信息（宗地图、平面分布图、鸟瞰图、分层分户平面图、场地涉外管线布置图）
         /// </summary>
         /// <param name="document"></param>
-        public void insertInfo(DocX document, List<FDXXmodel> lstFM, List<Parcelmodel> p)
+        public void insertInfo(DocX document, List<FDXXtbl> lstFM, List<Parcelmodel> p)
         {
             document.InsertSectionPageBreak();  //分页符
 
@@ -95,13 +95,13 @@ namespace CreateWordGWJS.parcels
         /// <param name="document"></param>
         /// <param name="lstFM"></param>
         /// <param name="p"></param>
-        public void insertFCFH(DocX document, List<FDXXmodel> lstFM, List<Parcelmodel> p)
+        public void insertFCFH(DocX document, List<FDXXtbl> lstFM, List<Parcelmodel> p)
         {
             Paragraph h1_4_1;
             string path = "";
             var h1_4 = document.InsertParagraph("分层分户平面图");
             h1_4.StyleName = "Heading2";
-            foreach (FDXXmodel fm in lstFM)
+            foreach (FDXXtbl fm in lstFM)
             {
                 if (fm.ZDXX_MC + "地块" == Name)
                 {

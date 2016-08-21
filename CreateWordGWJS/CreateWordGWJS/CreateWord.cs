@@ -17,7 +17,7 @@ namespace CreateWordGWJS
     public partial class CreateWord : Form
     {
         string WordPath = Environment.CurrentDirectory + "\\汇编文档.docx"; //文档路径
-        List<FDXXmodel> lstFM;
+        List<FDXXtbl> lstFM;
         List<Parcelmodel> lstp;
         public CreateWord()
         {
@@ -41,8 +41,8 @@ namespace CreateWordGWJS
         {
             try
             {
-                lstFM = FDXXmodel.GetInfo();
-                lstp = FDXXmodel.Parcels(lstFM);
+                lstFM = FDXXtbl.GetInfo();
+                lstp = FDXXtbl.Parcels(lstFM);
                 using (DocX document = DocX.Create(WordPath))
                 {
                     Addcover(document);//添加封面
@@ -57,7 +57,7 @@ namespace CreateWordGWJS
 
                     Addfdxx(document);//添加房地信息统计
 
-                    parcelHelper phelper = new parcelHelper("通湖路699号地块");
+                    parcelHelper phelper = new parcelHelper("通湖路699号地块");//添加各个地块的信息
                     phelper.insertInfo(document, lstFM, lstp);
 
 
@@ -70,6 +70,8 @@ namespace CreateWordGWJS
                 MessageBox.Show("创建文档失败！");
             }
         }
+
+        #region 各个模块
         /// <summary>
         /// 添加封面
         /// </summary>
@@ -90,7 +92,6 @@ namespace CreateWordGWJS
                 .FontSize(22)
                 .Bold()
                 .Alignment = Alignment.center;
-            //_date.Append(DateTime.Now.Year.ToString() + "年" + DateTime.Now.Month.ToString() + "月").FontSize(22).Bold();
             document.DifferentFirstPage = true;
         }
 
@@ -168,6 +169,7 @@ namespace CreateWordGWJS
             p.Append("平方米，建成投运30年以上的房屋面积为");
             p.AppendBookmark("三十年以上房屋面积");
             p.Append("平方米。");
+            finishBM(document);//完成书签内容
             //表格描述
             var tbltitle = document.InsertParagraph("房地信息汇总表").Alignment = Alignment.center;
             Table t = tableHelper.Template(document);
@@ -175,6 +177,8 @@ namespace CreateWordGWJS
             t = tableHelper.combineCells(t, lstp);
             document.InsertTable(t);
         }
+        #endregion
+
 
         string NumberToChinese(int number)
         {
@@ -183,7 +187,7 @@ namespace CreateWordGWJS
             if (number > 12)//年份
             {
                 string year = number.ToString();
-                foreach(char s in year)
+                foreach (char s in year)
                 {
                     d = ' ';
                     switch (s)
@@ -199,12 +203,12 @@ namespace CreateWordGWJS
                         case '8': d = '八'; break;
                         case '9': d = '九'; break;
                     }
-                    outString+=d;
+                    outString += d;
                 }
             }
             else//月份
             {
-                switch(number)
+                switch (number)
                 {
                     case 1: outString = "一"; break;
                     case 2: outString = "二"; break;
@@ -223,28 +227,36 @@ namespace CreateWordGWJS
             return outString;
         }
 
+        /// <summary>
+        /// 完成书签内容
+        /// </summary>
+        /// <param name="document"></param>
+        void finishBM(DocX document)
+        {
+            FDXXsentence1 fs1 = new FDXXsentence1();
+            List<FDXXsentence2> lstFS2 = new List<FDXXsentence2>();
+            FDXXsentence3 fs3 = new FDXXsentence3();
+            string temp = "";
+            fs1 = FDXXsentence1.GetInfo();
+            lstFS2 = FDXXsentence2.GetInfo();
+            fs3 = FDXXsentence3.GetInfo();
 
-        //void finishBM(DocX document)
-        //{
-        //    //string Intro = "";//单位介绍
+            document.Bookmarks["各类用房栋数"].SetText("" + fs1.count);
+            document.Bookmarks["占地总面积"].SetText("" + fs1.ZDZMJ);
+            document.Bookmarks["总建筑面积"].SetText("" + fs1.ZJZMJ);
 
-        //    //书签：标题
-        //    var p = document.Bookmarks["标题"].Paragraph;
-        //    p.Append(txtName.Text + "非生产性房产资源汇编").FontSize(48).Bold().Alignment = Alignment.center;
+            foreach (FDXXsentence2 fs2 in lstFS2)
+            {
+                temp += fs2.GNGL;
+                temp += "" + fs2.GNGL_MJ;
+                temp += "平方米，";
+            }
+            temp = temp.Trim('，');
+            document.Bookmarks["各类用房面积"].SetText(temp);
 
-
-        //    ////书签：概述中的文字
-        //    //Intro = txt.txtHelper.readtxt(Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司" + txtName.Text + "\\单位介绍.txt");
-        //    //document.Bookmarks["概述中的文字"].SetText(Intro);
-        //    ////书签：概述中的图片
-        //    //Picture p1 = picture.picHelper.getPic(document, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司" + txtName.Text + "\\单位介绍图.jpg",500,600);
-        //    //document.Bookmarks["概述中的图片"].Paragraph.InsertPicture(p1);
-        //    ////书签：位置分布图中的图片
-        //    //Picture p2 = picture.picHelper.getPic(document, Environment.CurrentDirectory + "\\公司\\国网江苏省电力公司" + txtName.Text + "\\位置分布图.jpg",500,600);
-        //    //document.Bookmarks["位置分布图中的图片"].Paragraph.InsertPicture(p2);
-        //    ////书签：房地信息统计中的公司名称
-        //    //document.Bookmarks["房地信息统计中的公司名称"].SetText(txtName.Text);
-
-        //}
+            document.Bookmarks["十年内房屋面积"].SetText("" + fs3.FWMJ_10);
+            document.Bookmarks["十到二十年内房屋面积"].SetText("" + fs3.FWMJ_20);
+            document.Bookmarks["三十年以上房屋面积"].SetText("" + fs3.FWMJ_30);
+        }
     }
 }
