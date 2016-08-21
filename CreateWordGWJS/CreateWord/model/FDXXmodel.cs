@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CreateWord.log;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
@@ -81,9 +82,9 @@ namespace CreateWord.model
                     lstFDXX.Add(fm);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                LogHelper.WriteLog(typeof(FDXXtbl), ex);
             }
             finally
             {
@@ -105,27 +106,36 @@ namespace CreateWord.model
             string temp = "";
             Parcelmodel pm;
             List<Parcelmodel> lstParcel = new List<Parcelmodel>();
-            foreach (FDXXtbl fm in lstFDXX)
+
+            try
             {
-                num = 0;
-                flag = 1;
-                temp = fm.ZDXX_MC;
-                foreach (Parcelmodel pm1 in lstParcel)
+                foreach (FDXXtbl fm in lstFDXX)
                 {
-                    if (pm1.name == temp) { flag = 0; break; }//说明p[]里面已经存储了该宗地信息，所以把flag值设置为0。
-                }
-                if (flag == 1)
-                {
-                    foreach (FDXXtbl fm1 in lstFDXX)
+                    num = 0;
+                    flag = 1;
+                    temp = fm.ZDXX_MC;
+                    foreach (Parcelmodel pm1 in lstParcel)
                     {
-                        if (fm1.ZDXX_MC == temp) num++;
+                        if (pm1.name == temp) { flag = 0; break; }//说明p[]里面已经存储了该宗地信息，所以把flag值设置为0。
                     }
-                    pm = new Parcelmodel();
-                    pm.name = temp;
-                    pm.num = num;
-                    lstParcel.Add(pm);
+                    if (flag == 1)
+                    {
+                        foreach (FDXXtbl fm1 in lstFDXX)
+                        {
+                            if (fm1.ZDXX_MC == temp) num++;
+                        }
+                        pm = new Parcelmodel();
+                        pm.name = temp;
+                        pm.num = num;
+                        lstParcel.Add(pm);
+                    }
                 }
             }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(FDXXtbl), ex);
+            }
+
             return lstParcel;
         }
 
@@ -166,7 +176,7 @@ namespace CreateWord.model
             }
             catch (System.Exception ex)
             {
-
+                LogHelper.WriteLog(typeof(FDXXsentence1), ex);
             }
             finally
             {
@@ -211,7 +221,7 @@ namespace CreateWord.model
             }
             catch (Exception ex)
             {
-
+                LogHelper.WriteLog(typeof(FDXXsentence2), ex);
             }
             finally
             {
@@ -258,9 +268,9 @@ namespace CreateWord.model
                     else fs.FWMJ_20 = (decimal)myReader["FCMJ"];
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                LogHelper.WriteLog(typeof(FDXXsentence3), ex);
             }
             finally
             {

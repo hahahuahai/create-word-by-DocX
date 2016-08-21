@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CreateWord.log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,19 @@ namespace CreateWord.txt
         public static List<string> txtLines(string path)
         {
             List<string> lstStr = new List<string>();
-            string[] lines = System.IO.File.ReadAllLines(path, Encoding.Default);
-            foreach (string line in lines)
+            try
             {
-                lstStr.Add(line);
+                string[] lines = System.IO.File.ReadAllLines(path, Encoding.Default);
+                foreach (string line in lines)
+                {
+                    lstStr.Add(line);
+                }
             }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(txtHelper), ex);
+            }
+
             return lstStr;
         }
         /// <summary>
@@ -31,7 +40,15 @@ namespace CreateWord.txt
         /// <returns></returns>
         public static string readtxt(string path)
         {
-            string text = System.IO.File.ReadAllText(path, Encoding.Default);
+            string text = "";
+            try
+            {
+                text = System.IO.File.ReadAllText(path, Encoding.Default);
+            }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(txtHelper), ex);
+            }
             return text;
         }
     }

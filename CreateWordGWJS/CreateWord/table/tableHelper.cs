@@ -1,4 +1,5 @@
-﻿using CreateWord.model;
+﻿using CreateWord.log;
+using CreateWord.model;
 using Novacode;
 using System;
 using System.Collections.Generic;
@@ -21,39 +22,46 @@ namespace CreateWord.table
         /// <returns></returns>
         public static Table Template(DocX document)
         {
-            Table t = document.AddTable(3, 13);
+            Table t = null;
+            try
+            {
+                t = document.AddTable(3, 13);
 
-            #region "前三行"
-            t.Rows[0].Cells[0].Paragraphs.First().Append("序号").Bold();
-            t.Rows[0].Cells[1].Paragraphs.First().Append("地块名称").Bold();
-            t.Rows[0].Cells[2].Paragraphs.First().Append("地块占地面积（m2）").Bold();
-            t.Rows[0].Cells[3].Paragraphs.First().Append("建筑名称").Bold();
-            t.Rows[0].Cells[4].Paragraphs.First().Append("建筑层数").Bold();
-            t.Rows[0].Cells[6].Paragraphs.First().Append("建筑结构").Bold();
-            t.Rows[0].Cells[7].Paragraphs.First().Append("建筑年代").Bold();
-            t.Rows[0].Cells[8].Paragraphs.First().Append("建筑面积（m2）").Bold();
-            t.Rows[0].Cells[11].Paragraphs.First().Append("具体使用功能").Bold();
-            t.Rows[0].Cells[12].Paragraphs.First().Append("备注").Bold();
-            t.Rows[1].Cells[4].Paragraphs.First().Append("地上").Bold();
-            t.Rows[1].Cells[5].Paragraphs.First().Append("地下").Bold();
-            t.Rows[1].Cells[8].Paragraphs.First().Append("总体").Bold();
-            t.Rows[1].Cells[9].Paragraphs.First().Append("地上").Bold();
-            t.Rows[1].Cells[10].Paragraphs.First().Append("地下").Bold();
-            t.Rows[2].Cells[0].Paragraphs.First().Append("合计").Bold();
+                #region "前三行"
+                t.Rows[0].Cells[0].Paragraphs.First().Append("序号").Bold();
+                t.Rows[0].Cells[1].Paragraphs.First().Append("地块名称").Bold();
+                t.Rows[0].Cells[2].Paragraphs.First().Append("地块占地面积（m2）").Bold();
+                t.Rows[0].Cells[3].Paragraphs.First().Append("建筑名称").Bold();
+                t.Rows[0].Cells[4].Paragraphs.First().Append("建筑层数").Bold();
+                t.Rows[0].Cells[6].Paragraphs.First().Append("建筑结构").Bold();
+                t.Rows[0].Cells[7].Paragraphs.First().Append("建筑年代").Bold();
+                t.Rows[0].Cells[8].Paragraphs.First().Append("建筑面积（m2）").Bold();
+                t.Rows[0].Cells[11].Paragraphs.First().Append("具体使用功能").Bold();
+                t.Rows[0].Cells[12].Paragraphs.First().Append("备注").Bold();
+                t.Rows[1].Cells[4].Paragraphs.First().Append("地上").Bold();
+                t.Rows[1].Cells[5].Paragraphs.First().Append("地下").Bold();
+                t.Rows[1].Cells[8].Paragraphs.First().Append("总体").Bold();
+                t.Rows[1].Cells[9].Paragraphs.First().Append("地上").Bold();
+                t.Rows[1].Cells[10].Paragraphs.First().Append("地下").Bold();
+                t.Rows[2].Cells[0].Paragraphs.First().Append("合计").Bold();
 
-            //单元格合并操作（先竖向合并，再横向合并，以免报错，因为横向合并会改变列数）
-            t.MergeCellsInColumn(0, 0, 1);
-            t.MergeCellsInColumn(1, 0, 1);
-            t.MergeCellsInColumn(2, 0, 1);
-            t.MergeCellsInColumn(3, 0, 1);
-            t.MergeCellsInColumn(6, 0, 1);
-            t.MergeCellsInColumn(7, 0, 1);
-            t.MergeCellsInColumn(11, 0, 1);
-            t.MergeCellsInColumn(12, 0, 1);
-            t.Rows[0].MergeCells(4, 5);
-            t.Rows[0].MergeCells(7, 9);
-            #endregion
-
+                //单元格合并操作（先竖向合并，再横向合并，以免报错，因为横向合并会改变列数）
+                t.MergeCellsInColumn(0, 0, 1);
+                t.MergeCellsInColumn(1, 0, 1);
+                t.MergeCellsInColumn(2, 0, 1);
+                t.MergeCellsInColumn(3, 0, 1);
+                t.MergeCellsInColumn(6, 0, 1);
+                t.MergeCellsInColumn(7, 0, 1);
+                t.MergeCellsInColumn(11, 0, 1);
+                t.MergeCellsInColumn(12, 0, 1);
+                t.Rows[0].MergeCells(4, 5);
+                t.Rows[0].MergeCells(7, 9);
+                #endregion
+            }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(tableHelper), ex);
+            }
 
             //document.InsertTable(t);
 
@@ -69,23 +77,29 @@ namespace CreateWord.table
         public static Table inserttable(Table t, List<FDXXtbl> lsmFM)
         {
             int temp = 3;
-
-            foreach (FDXXtbl fm in lsmFM)
+            try
             {
-                t.InsertRow();
-                t.Rows[temp].Cells[1].Paragraphs.First().Append(fm.ZDXX_MC);
-                t.Rows[temp].Cells[2].Paragraphs.First().Append("" + fm.ZDXX_ZDMJ);
-                t.Rows[temp].Cells[3].Paragraphs.First().Append(fm.FCXX_JZMC);
-                t.Rows[temp].Cells[4].Paragraphs.First().Append("" + fm.FCXX_DSCS);
-                t.Rows[temp].Cells[5].Paragraphs.First().Append("" + fm.FCXX_DXCS);
-                t.Rows[temp].Cells[6].Paragraphs.First().Append(fm.FCXX_JZJG);
-                t.Rows[temp].Cells[7].Paragraphs.First().Append("" + fm.FCXX_JSND);
-                t.Rows[temp].Cells[8].Paragraphs.First().Append("" + fm.ZMJ);
-                t.Rows[temp].Cells[9].Paragraphs.First().Append("" + fm.FCXX_DSMJ);
-                t.Rows[temp].Cells[10].Paragraphs.First().Append("" + fm.FCXX_DXMJ);
-                t.Rows[temp].Cells[11].Paragraphs.First().Append(fm.FCZK_SYGN);
-                t.Rows[temp].Cells[12].Paragraphs.First().Append(fm.FCXX_BZ);
-                temp++;
+                foreach (FDXXtbl fm in lsmFM)
+                {
+                    t.InsertRow();
+                    t.Rows[temp].Cells[1].Paragraphs.First().Append(fm.ZDXX_MC);
+                    t.Rows[temp].Cells[2].Paragraphs.First().Append("" + fm.ZDXX_ZDMJ);
+                    t.Rows[temp].Cells[3].Paragraphs.First().Append(fm.FCXX_JZMC);
+                    t.Rows[temp].Cells[4].Paragraphs.First().Append("" + fm.FCXX_DSCS);
+                    t.Rows[temp].Cells[5].Paragraphs.First().Append("" + fm.FCXX_DXCS);
+                    t.Rows[temp].Cells[6].Paragraphs.First().Append(fm.FCXX_JZJG);
+                    t.Rows[temp].Cells[7].Paragraphs.First().Append("" + fm.FCXX_JSND);
+                    t.Rows[temp].Cells[8].Paragraphs.First().Append("" + fm.ZMJ);
+                    t.Rows[temp].Cells[9].Paragraphs.First().Append("" + fm.FCXX_DSMJ);
+                    t.Rows[temp].Cells[10].Paragraphs.First().Append("" + fm.FCXX_DXMJ);
+                    t.Rows[temp].Cells[11].Paragraphs.First().Append(fm.FCZK_SYGN);
+                    t.Rows[temp].Cells[12].Paragraphs.First().Append(fm.FCXX_BZ);
+                    temp++;
+                }
+            }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(tableHelper), ex);
             }
             return t;
         }
@@ -100,17 +114,26 @@ namespace CreateWord.table
         {
             int startCell = 3;
             int number = 1;//表中第一列的序号
-            foreach (Parcelmodel pm in p)
+
+            try
             {
-                if (pm.num != 1)
+                foreach (Parcelmodel pm in p)
                 {
-                    t.MergeCellsInColumn(0, startCell, startCell + pm.num - 1); //合并序号                    
-                    t.MergeCellsInColumn(1, startCell, startCell + pm.num - 1); //合并地块名称
-                    t.MergeCellsInColumn(2, startCell, startCell + pm.num - 1); //合并地块占地面积
+                    if (pm.num != 1)
+                    {
+                        t.MergeCellsInColumn(0, startCell, startCell + pm.num - 1); //合并序号                    
+                        t.MergeCellsInColumn(1, startCell, startCell + pm.num - 1); //合并地块名称
+                        t.MergeCellsInColumn(2, startCell, startCell + pm.num - 1); //合并地块占地面积
+                    }
+                    t.Rows[startCell].Cells[0].Paragraphs.First().Append("" + number++);    //添加序号
+                    startCell = startCell + pm.num;
                 }
-                t.Rows[startCell].Cells[0].Paragraphs.First().Append("" + number++);    //添加序号
-                startCell = startCell + pm.num;
             }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(tableHelper), ex);
+            }
+
             return t;
         }
 
@@ -120,13 +143,23 @@ namespace CreateWord.table
         /// <returns></returns>
         public static Table PlanTable(DocX document, List<string> lstStr, string path)
         {
-            Table t = document.AddTable(lstStr.Count, 1);
+            Table t = null;
             int i = 0;
-            foreach (string s in lstStr)
+
+            try
             {
-                Picture p = picture.picHelper.getPic(document, path + s + ".jpg", 500, 300);
-                t.Rows[i].Cells[0].Paragraphs.First().AppendPicture(p).AppendLine(s);
+                t = document.AddTable(lstStr.Count, 1);
+                foreach (string s in lstStr)
+                {
+                    Picture p = picture.picHelper.getPic(document, path + s + ".jpg", 500, 300);
+                    t.Rows[i].Cells[0].Paragraphs.First().AppendPicture(p).AppendLine(s);
+                }
             }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(tableHelper), ex);
+            }
+
             return t;
         }
 

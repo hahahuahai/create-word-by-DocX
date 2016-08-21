@@ -1,4 +1,5 @@
-﻿using Novacode;
+﻿using CreateWord.log;
+using Novacode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,12 +29,21 @@ namespace CreateWord.picture
         /// <param name="picPath"></param>
         public static void insert(DocX document, Paragraph p, string picPath)
         {
-            Image image = document.AddImage(picPath);
 
-            Picture picture = image.CreatePicture();
-            picture.Height = 600;
-            picture.Width = 600;
-            p.AppendPicture(picture);
+            try
+            {
+
+                Image image = document.AddImage(picPath);
+
+                Picture picture = image.CreatePicture();
+                picture.Height = 600;
+                picture.Width = 600;
+                p.AppendPicture(picture);
+            }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(picHelper), ex);
+            }
         }
 
         /// <summary>
@@ -46,12 +56,20 @@ namespace CreateWord.picture
         /// <returns></returns>
         public static Picture getPic(DocX document, string picPath, int height, int width)
         {
-            Image image = document.AddImage(picPath);
+            Picture p = null;
+            try
+            {
+                Image image = document.AddImage(picPath);
 
-            Picture picture = image.CreatePicture();
-            picture.Height = height;
-            picture.Width = width;
-            return picture;
+                p = image.CreatePicture();
+                p.Height = height;
+                p.Width = width;
+            }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog(typeof(picHelper), ex);
+            }
+            return p;
         }
 
     }
